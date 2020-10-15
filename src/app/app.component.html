@@ -2,6 +2,6 @@
     <img class="logo" src="https://angular-academy.s3.amazonaws.com/main-logo/main-page-logo-small-hat.png">
 </div>
 
-<div class="courses" *ngFor="let course of courses">
-  <course-card [course]="course"></course-card>
+<div class="courses" *ngFor="let course of courses; index as i">
+  <course-card [course]="course" [cardIndex]="i + 1"></course-card>
 </div>

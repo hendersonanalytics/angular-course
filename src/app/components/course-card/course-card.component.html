@@ -1,6 +1,6 @@
 <div class="course-card">
   <div class="course-title">
-      {{course.description}}
+      {{(cardIndex || '') + ' ' +  course.description}}
   </div>
   <img width="300" [alt]="course.description" [src]="course.iconUrl" />
   <div class="course-description">
