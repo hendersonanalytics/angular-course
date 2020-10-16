@@ -1,5 +1,7 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Course } from 'src/app/model/course';
+
+
 
 @Component({
   selector: 'course-card',
@@ -9,10 +11,15 @@ import { Course } from 'src/app/model/course';
 export class CourseCardComponent implements OnInit {
   @Input() course: Course;
   @Input() cardIndex: number;
+  @Output() viewCourseClicked = new EventEmitter<number>();
 
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+  onClickViewCourse(courseId: number) {
+    this.viewCourseClicked.emit(courseId);
   }
 
 }
