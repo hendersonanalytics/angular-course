@@ -9,13 +9,9 @@ import {CourseCardComponent} from './course-card/course-card.component';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements AfterViewInit {
-
     courses = COURSES;
-
-
     @ViewChildren(CourseCardComponent, {read: ElementRef})
     cards : QueryList<ElementRef>;
-
 
     constructor() {
 
@@ -25,8 +21,13 @@ export class AppComponent implements AfterViewInit {
 
     }
 
-    onCourseSelected(course:Course) {
+    onCourseSelected(course: Course) {
 
+    }
+
+    // capture the toggleHighlight custom event from the highlighted directive
+    onToggleHighlight(isHighlighted: boolean) {
+      console.log(isHighlighted);
     }
 
 }

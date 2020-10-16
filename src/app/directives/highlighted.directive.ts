@@ -1,4 +1,4 @@
-import { Directive, HostBinding, Input } from '@angular/core';
+import { Directive, EventEmitter, HostBinding, HostListener, Input, Output } from '@angular/core';
 
 @Directive({
   // square brackets denote that this is an attribute selector
@@ -7,7 +7,26 @@ import { Directive, HostBinding, Input } from '@angular/core';
 export class HighlightedDirective {
   @Input('highlighted') isHighlighted: boolean = false;
 
+  @Output() toggleHighlight = new EventEmitter<boolean>();
+
   constructor() { }
+
+  // using host listeners to effect highlighted behavior
+  @HostListener('mouseover')
+  mouseOver() {
+    this.isHighlighted = true;
+
+    // host listener can also be used to emit custom events
+    this.toggleHighlight.emit(this.isHighlighted);
+  }
+
+  // it can also pass along event data
+  @HostListener('mouseleave', ['$event'])
+  mouseLeave(event) {
+    console.log(event);
+    this.isHighlighted = false;
+    this.toggleHighlight.emit(this.isHighlighted);
+  }
 
   // host binding can modify html element attributes
   @HostBinding('attr.disabled')
