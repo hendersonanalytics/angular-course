@@ -1,4 +1,5 @@
-import { AfterViewChecked, AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnDestroy, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
+import { Subscription } from 'rxjs';
 import {COURSES} from '../db-data';
 import { CourseCardComponent } from './components/course-card/course-card.component';
 import {Course} from './model/course';
@@ -8,7 +9,7 @@ import {Course} from './model/course';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent implements OnInit, AfterViewInit {
+export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
   // returns first matching element
   // view child can have a component class or a template reference as its param
   @ViewChild(CourseCardComponent) card: CourseCardComponent;
@@ -20,10 +21,21 @@ export class AppComponent implements OnInit, AfterViewInit {
   // it also works for plain old HTML elements
   @ViewChild('container') tempRef: ElementRef;
 
+  // we can also query all elements of a given type
+  @ViewChildren(CourseCardComponent) cards: QueryList<CourseCardComponent>;
+
+  // you can also pass read: ElementRef in as an option with ViewChildren
+  @ViewChildren(CourseCardComponent, { read: ElementRef }) cardRefs: QueryList<ElementRef>;
+
   public courses: Course[];
+  private _changesSub: Subscription;
 
   ngOnInit() {
     this.courses = COURSES;
+  }
+
+  ngOnDestroy() {
+    this._changesSub.unsubscribe();
   }
 
   ngAfterViewInit() {
@@ -31,8 +43,17 @@ export class AppComponent implements OnInit, AfterViewInit {
     console.log(this.cardRef1);
     console.log(this.cardRef2);
     console.log(this.tempRef);
-    // we get errors if we try to change the data affecting the component in these AfterView lifecycle hooks
-    // this.courses[1].description = 'blah';
+    console.log(this.cards);
+    console.log(this.cardRefs);
+
+    // I don't get the same subscription as him
+    this._changesSub = this.cards.changes.subscribe(cards => {
+      console.log(cards);
+    });
+  }
+
+  onEditCoursesClicked() {
+    this.courses = this.courses.slice().reverse();
   }
 
   onViewCourseClicked(courseId: number) {

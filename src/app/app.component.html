@@ -2,6 +2,10 @@
     <img class="logo" src="https://angular-academy.s3.amazonaws.com/main-logo/main-page-logo-small-hat.png">
 </div>
 
+<button (click)="onEditCoursesClicked()">
+  Edit Courses
+</button>
+
 <div class="courses" #container>
   <course-card (viewCourseClicked)="onViewCourseClicked($event)" [course]="courses[0]"></course-card>
   <course-card #cardRef1 (viewCourseClicked)="onViewCourseClicked($event)" [course]="courses[1]"></course-card>
