@@ -2,9 +2,32 @@
   <div class="course-title">
       {{(cardIndex || '') + ' ' +  course.description}}
   </div>
-  <img width="300" [alt]="course.description" [src]="course.iconUrl" />
-  <div class="course-description">
-      {{course.longDescription}}
+
+  <!--
+    by default, ng-content will take anything written between the opening and closing tags
+    and put it where the ng-content tags are
+
+    restrict what content can be projected into here by using the "select" attribute and supplying
+    a css selector
+  -->
+
+  <!-- <ng-content select="img"></ng-content>  -->
+  <ng-content select=".course-image"></ng-content>
+
+  <!-- you can have more than one ng-content slot in an angular template and use a different selector -->
+  <ng-content select=".course-description"></ng-content>
+
+  <!--
+    in the case of multiple content slots, an ng-content projection area with no selector will
+    get all the content that didn't fall under other selectors
+  -->
+  <ng-content></ng-content>
+
+
+  <div class="course-category" [ngSwitch]="course.category">
+    <div class="category" *ngSwitchCase="'BEGINNER'">Beginner</div>
+    <div class="category" *ngSwitchCase="'INTERMEDIATE'">Intermediate</div>
+    <div class="category" *ngSwitchCase="'ADVANCED'">Advanced</div>
   </div>
 
   <button mat-button color="primary" (click)="onClickViewCourse(course.id)">View Course</button>

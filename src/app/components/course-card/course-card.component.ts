@@ -1,8 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Course } from 'src/app/model/course';
 
-
-
 @Component({
   selector: 'course-card',
   templateUrl: './course-card.component.html',

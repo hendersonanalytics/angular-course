@@ -2,12 +2,23 @@
     <img class="logo" src="https://angular-academy.s3.amazonaws.com/main-logo/main-page-logo-small-hat.png">
 </div>
 
-<button (click)="onEditCoursesClicked()">
-  Edit Courses
-</button>
+<div class="courses" #container *ngIf="courses[0] as course">
+  <course-card
+    (viewCourseClicked)="onViewCourseClicked($event)"
+    [course]="course"
+  >
 
-<div class="courses" #container>
-  <course-card (viewCourseClicked)="onViewCourseClicked($event)" [course]="courses[0]"></course-card>
-  <course-card #cardRef1 (viewCourseClicked)="onViewCourseClicked($event)" [course]="courses[1]"></course-card>
-  <course-card #cardRef2 (viewCourseClicked)="onViewCourseClicked($event)" [course]="courses[2]"></course-card>
+    <div class="course-image">
+      <img width="300" [alt]="course.description" [src]="course.iconUrl" />
+      <h5>{{course.lessonsCount}} lessons</h5>
+    </div>
+
+    <div class="course-description">
+      {{course.longDescription}}
+    </div>
+
+    <span>Edit Description</span>
+    <textarea></textarea>
+
+  </course-card>
 </div>
