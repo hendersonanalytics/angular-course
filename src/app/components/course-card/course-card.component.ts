@@ -1,4 +1,4 @@
-import { AfterContentInit, Component, ContentChild, ElementRef, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { AfterContentInit, Component, ContentChild, ContentChildren, ElementRef, EventEmitter, Input, OnInit, Output, QueryList } from '@angular/core';
 import { CourseImageComponent } from 'src/app/course-image/course-image.component';
 import { Course } from 'src/app/model/course';
 
@@ -12,11 +12,11 @@ export class CourseCardComponent implements OnInit, AfterContentInit {
   @Input() cardIndex: number;
   @Output() viewCourseClicked = new EventEmitter<number>();
 
-  // this query only covers the projected content
-  @ContentChild('imageContent') image: ElementRef;
-
   // content child queries can also target a component instance
   @ContentChild(CourseImageComponent) courseImageComponent: CourseImageComponent;
+
+  // @ContentChildren gets you a query list of all elements matching a selector
+  @ContentChildren(CourseImageComponent) courseImageComponents: QueryList<CourseImageComponent>;
 
   constructor() { }
 
@@ -28,8 +28,8 @@ export class CourseCardComponent implements OnInit, AfterContentInit {
   }
 
   ngAfterContentInit() {
-    console.log(this.image);
     console.log(this.courseImageComponent);
+    console.log(this.courseImageComponents);
   }
 
 }

@@ -11,10 +11,10 @@
     a css selector
   -->
 
-  <!-- <ng-content select="img"></ng-content>  -->
-  <ng-content select=".course-image"></ng-content>
-
   <!-- we can also use in a custom component as a selector -->
+  <!--
+    Weirdly, I still get access to the content children even when I comment this out
+  -->
   <ng-content select="course-image"></ng-content>
 
   <!-- you can have more than one ng-content slot in an angular template and use a different selector -->
