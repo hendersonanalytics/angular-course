@@ -14,15 +14,11 @@
   <!-- <ng-content select="img"></ng-content>  -->
   <ng-content select=".course-image"></ng-content>
 
+  <!-- we can also use in a custom component as a selector -->
+  <ng-content select="course-image"></ng-content>
+
   <!-- you can have more than one ng-content slot in an angular template and use a different selector -->
   <ng-content select=".course-description"></ng-content>
-
-  <!--
-    in the case of multiple content slots, an ng-content projection area with no selector will
-    get all the content that didn't fall under other selectors
-  -->
-  <ng-content></ng-content>
-
 
   <div class="course-category" [ngSwitch]="course.category">
     <div class="category" *ngSwitchCase="'BEGINNER'">Beginner</div>

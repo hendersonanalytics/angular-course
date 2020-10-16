@@ -1,5 +1,5 @@
-import { AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { Subscription } from 'rxjs';
+import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+
 import {COURSES} from '../db-data';
 import {Course} from './model/course';
 
@@ -8,19 +8,14 @@ import {Course} from './model/course';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
+export class AppComponent implements OnInit, AfterViewInit {
   // it also works for plain old HTML elements
   @ViewChild('container') tempRef: ElementRef;
 
   public courses: Course[];
-  private _changesSub: Subscription;
 
   ngOnInit() {
     this.courses = COURSES;
-  }
-
-  ngOnDestroy() {
-    this._changesSub.unsubscribe();
   }
 
   ngAfterViewInit() {

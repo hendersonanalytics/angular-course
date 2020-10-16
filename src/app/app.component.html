@@ -8,7 +8,7 @@
     [course]="course"
   >
 
-    <div class="course-image">
+    <div class="course-image" #imageContent>
       <img width="300" [alt]="course.description" [src]="course.iconUrl" />
       <h5>{{course.lessonsCount}} lessons</h5>
     </div>
@@ -16,9 +16,16 @@
     <div class="course-description">
       {{course.longDescription}}
     </div>
+  </course-card>
 
-    <span>Edit Description</span>
-    <textarea></textarea>
+  <course-card
+    (viewCourseClicked)="onViewCourseClicked($event)"
+    [course]="courses[1]"
+  >
+    <course-image [course]="courses[1]"></course-image>
 
+    <div class="course-description">
+      {{courses[1].longDescription}}
+    </div>
   </course-card>
 </div>
