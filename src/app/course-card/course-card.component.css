@@ -45,7 +45,10 @@
   background: lightgray;
 }
 
-
 :host.is-odd {
   background: lightcyan;
+}
+
+:host-context(.salmon-theme) .course-card {
+  background-color: lightsalmon;
 }
