@@ -2,7 +2,8 @@ import { Directive, EventEmitter, HostBinding, HostListener, Input, Output } fro
 
 @Directive({
   // square brackets denote that this is an attribute selector
-  selector: '[highlighted]'
+  selector: '[highlighted]',
+  exportAs: 'hl'
 })
 export class HighlightedDirective {
   @Input('highlighted') isHighlighted: boolean = false;
@@ -11,9 +12,16 @@ export class HighlightedDirective {
 
   constructor() { }
 
+  // add public method
+  toggle() {
+    this.isHighlighted = !this.isHighlighted;
+    this.toggleHighlight.emit(this.isHighlighted);
+  }
+
   // using host listeners to effect highlighted behavior
+  // these methods can be private
   @HostListener('mouseover')
-  mouseOver() {
+  private mouseOver() {
     this.isHighlighted = true;
 
     // host listener can also be used to emit custom events
